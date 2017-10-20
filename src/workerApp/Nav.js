@@ -6,7 +6,7 @@ class Nav extends Component{
   render(){
     return(
       <div style={{height: "45px", width: "100%", backgroundColor: "rgb(0,188,212)", boxShadow: "0px 0px 7px 1px #CCCCCC"}}>
-        <div style={{margin: "0 auto", maxWidth: "800px", width: "100%", height: "45px"}}>
+        <div style={{position: 'relative', margin: "0 auto", maxWidth: "800px", width: "100%", height: "45px"}}>
 {/*          <div style={{fontSize: "14px", float: "left", display: "inline-block", width: "170px", height: "39px"}}>
             <div style={{position: "relative", borderLeft: "1px solid rgb(202,202,202)", borderRight: "1px solid rgb(202,202,202)", marginTop: "2px", display: "inline-block", width: "49%", height: "39px"}}>
               <div style={{position: "absolute", paddingTop: "13px", textAlign: "center", width:"100%"}}>
@@ -30,10 +30,10 @@ class Nav extends Component{
               <select value={this.props.lang} onChange={this.props.onChangeLang}>
                 {this.props.languages.map(lang => <option key={lang} value={lang}>{lang}</option>)}
               </select>
-
             </div>
           </div>
 
+          <div style={{color: 'white', paddingTop: '15px', top: 0, right: '15px', position: 'absolute'}}>TEAM SUPPORTER WORKER APP</div>
 
 
 {/*          <div style={{fontSize: "14px", float: "right", display: "inline-block", width: "120px", height: "39px"}}>
