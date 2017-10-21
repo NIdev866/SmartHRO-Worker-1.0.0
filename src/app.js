@@ -55,11 +55,9 @@ class App extends Component {
     this.props.dispatch(setLanguage('en'))
   }
 
-
-  onChangeLang = (e) => {
-    this.props.dispatch(setLanguage(e.target.value))
+  onChangeLang = (event, index, value) => {
+    this.props.dispatch(setLanguage(value))
   }
-
 
   render() {
     return (

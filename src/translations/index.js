@@ -34,6 +34,8 @@ export const translations = {
     'Postal code':'Kod pocztowy',
     'First Name': 'Imie',
     'Last Name':'Nazwisko',
+    'TEAM SUPPORTER WORKER APP':'TEAM SUPPORTER APLIKACJA PRACOWNIKA',
+    'WORKER APP':'APLIKACJA PRACOWNIKA',
 
     'Address line 1 required':'Pierwsza linia adresu wymagana',
     'Postal code required':'Kod pocztowy wymagany',

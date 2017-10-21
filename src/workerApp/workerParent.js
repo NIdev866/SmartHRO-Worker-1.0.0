@@ -11,21 +11,7 @@ import * as actions from '../actions';
 import {setLanguage} from 'redux-i18n'
 
 class WorkerParent extends Component {
-  constructor(props) {
-    super(props)
-    this.languages = ['pl', 'en']
-  }
-
-  componentWillMount() {
-    this.props.dispatch(setLanguage('en'))
-  }
-
-  onChangeLang = (e) => {
-    this.props.dispatch(setLanguage(e.target.value))
-  }
-
   render(){
-
     return(
       <div>
         <Contents url={this.props.match.url} />
