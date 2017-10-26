@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm, change } from 'redux-form';
-import { signupUser,clearAuthError } from '../../actions';
+import * as actions from '../../actions';
 import renderField from '../renderField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
@@ -8,6 +8,9 @@ import { Redirect } from 'react-router'
 
 
 import Dialog from 'material-ui/Dialog';
+import CircularProgress from 'material-ui/CircularProgress';
+import FontIcon from 'material-ui/FontIcon';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class SignupComponent extends Component {
@@ -50,32 +53,63 @@ class SignupComponent extends Component {
                 overlayStyle={{opacity: "0.6"}}
                 open={true}
               >
-              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <Field
-                  name="email"
-                  type="text"
-                  component={renderField}
-                  label="Email"
-                />
-                <Field
-                  name="password"
-                  type="password"
-                  component={renderField}
-                  label={this.context.t('Password')}
-                />
-                <Field
-                  name="confirm_password"
-                  type="password"
-                  component={renderField}
-                  label={this.context.t('Confirm Password')}
-                />
+              <div>
+                {!this.props.signingUpUser && !this.props.signingUpSuccessful &&
+                  <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+                    <Field
+                      name="email"
+                      type="text"
+                      component={renderField}
+                      label="Email"
+                    />
+                    <Field
+                      name="password"
+                      type="password"
+                      component={renderField}
+                      label={this.context.t('Password')}
+                    />
+                    <Field
+                      name="confirm_password"
+                      type="password"
+                      component={renderField}
+                      label={this.context.t('Confirm Password')}
+                    />
 
-                <RaisedButton
-                  type="submit"
-                  label={this.context.t('SIGN UP')}
-                  primary={true}
-                />
-              </form>
+                    <RaisedButton
+                      type="submit"
+                      label={this.context.t('SIGN UP')}
+                      primary={true}
+                    />
+                  </form>
+                }
+              </div>
+              <div>
+                {this.props.signingUpUser && 
+                  <div style={{height: '100px'}}>
+                    <div style={{fontSize: '20px', marginTop: '34px', verticalAlign:"top", width: '49%', display: 'inline-block'}}>
+                      Signing up...
+                    </div>
+                    <div style={{width: '49%', display: 'inline-block'}}>
+                      <CircularProgress size={80}  thickness={7}/>
+                    </div>
+                  </div>
+                }
+              </div>
+              <div>
+                {this.props.signingUpSuccessful && 
+                  <div style={{height: '100px'}}>
+                    <div style={{fontSize: '20px', marginTop: '34px', verticalAlign:"top", width: '49%', display: 'inline-block'}}>
+                      Your password has been successfully created. Now just fill in your details (you can do it later)
+                    </div>
+                    <div>
+                      <FlatButton
+                        label="Now"
+                        onClick={()=> this.props.confirmedToCreateProfileAfterSignup()}
+                      />
+                    </div>
+                  </div>
+                }
+              </div>
             </Dialog>
             }
           </div>
@@ -116,7 +150,9 @@ SignupComponent.contextTypes = {
 function mapStateToProps(state) {
   return {
     errorMessage: state.auth.error,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    signingUpUser: state.main.signingUpUser,
+    signingUpSuccessful: state.main.signingUpSuccessful
   };
 }
 
@@ -125,5 +161,5 @@ export default reduxForm({
   form: 'signup',
   validate
 })(
-  connect(mapStateToProps,{ signupUser,clearAuthError })(SignupComponent)
+  connect(mapStateToProps, actions )(SignupComponent)
 );

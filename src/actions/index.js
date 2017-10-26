@@ -12,6 +12,8 @@ import {
   COMPANIES,
   ALL_CAMPAIGNS,
   PERSONAL_DATA_OF_WORKER,
+  SIGNING_UP_USER,
+  SIGNING_UP_SUCCESSFUL
 } from './types.js';
 
 
@@ -26,6 +28,20 @@ const ROOT_URL = 'http://ec2-54-77-236-165.eu-west-1.compute.amazonaws.com:3000'
 
 
 
+
+export function updatePersonalDetailsDataofWorker(fieldsToUpdate){
+  const worker_id = localStorage.getItem('worker_id');
+  return function(dispatch){
+    axios.put(`http://localhost:3000/worker/add-address/${worker_id}`, fieldsToUpdate)
+      .then(response => {
+        dispatch(fetchPersonalDataOfWorker())
+
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
+}
 
 
 
@@ -76,15 +92,6 @@ export function updateTaxDataOfWorker(fieldsToUpdate){
 
 
 
-
-
-
-
-
-
-
-
-
 export function fetchPersonalDataOfWorker(){
   const worker_id = localStorage.getItem('worker_id');
 
@@ -100,31 +107,6 @@ export function fetchPersonalDataOfWorker(){
       })
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export function fetchNestedJobSectors(){
   return function(dispatch){
@@ -165,17 +147,26 @@ export function fetchAllCampaigns(){
   }
 }
 
+
+
+
+
+
 export function signupUser({ email, password, jobseeker_id }) {
   return function(dispatch) {
+
+    dispatch({type: SIGNING_UP_USER})
+
     axios.put(`http://localhost:3000/worker/addlogin-credentials`, { email, password,jobseeker_id })
       .then(response => {
         //window.location.replace('/');
-        console.log(response);
+        
+        dispatch({type: SIGNING_UP_SUCCESSFUL})
+
         localStorage.setItem('worker_email', email);
 
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('worker_id', response.data.id);
-        dispatch({ type: AUTH_USER });
       })
       .catch((err) => {
         dispatch(authError('Bad Sign-Up Information'));
@@ -183,7 +174,11 @@ export function signupUser({ email, password, jobseeker_id }) {
   };
 }
 
-
+export function confirmedToCreateProfileAfterSignup(){
+  return function(dispatch) {
+    dispatch({ type: AUTH_USER });
+  };
+}
 
 
 

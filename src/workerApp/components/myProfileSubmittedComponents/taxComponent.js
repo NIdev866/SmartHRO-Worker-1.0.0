@@ -51,7 +51,24 @@ class TaxComponent extends Component{
     }
     this.handleBirthDateChange = this.handleBirthDateChange.bind(this)
     this.formatDate = this.formatDate.bind(this)
+
+    this.p45selection = this.p45selection.bind(this)
   }
+
+
+
+  p45selection(evt){
+
+    console.log(evt.target.files[0])
+
+    this.props.dispatch(change('taxDetails', 'p45_url', evt.target.files[0]));
+
+  }
+
+
+
+
+
   NIonChange(event) {
     event.target.value = event.target.value.toUpperCase()
     if (event.target.value.length === event.target.maxLength && event.target.id !== '10') {
@@ -215,6 +232,28 @@ class TaxComponent extends Component{
               </div>
 
             }
+
+            <div style={{marginTop: '20px', textDecoration: 'underline'}}>{this.context.t('p45')}</div>
+            
+
+            <RaisedButton style={{      
+                  minWidth: '41px', 
+                  height: '17px',
+                  fontSize: '15px'}} label="EDIT" primary={true}>
+              <input style={{
+              cursor: 'pointer',
+              position: 'absolute',
+              top: '0',
+              bottom: '0',
+              right: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              opacity: '0',
+              zIndex: 2
+              }} 
+              ref='file' type='file' onChange={this.p45selection} />
+            </RaisedButton>
 
 
         </form>

@@ -12,3 +12,6 @@ export const ALL_CAMPAIGNS = 'all_campaigns'
 
 export const PERSONAL_DATA_OF_WORKER = 'personal_data_of_worker'
 export const UPDATE_PERSONAL_DATA_OF_WORKER = 'update_personal_data_of_worker'
+
+export const SIGNING_UP_USER = "SIGNING_UP_USER"
+export const SIGNING_UP_SUCCESSFUL = "SIGNING_UP_SUCCESSFUL"
