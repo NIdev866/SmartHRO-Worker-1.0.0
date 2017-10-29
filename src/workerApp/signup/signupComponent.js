@@ -48,7 +48,6 @@ class SignupComponent extends Component {
               <Redirect to={`createprofile`} />
               :
               <Dialog
-                style={{marginTop: "-200px"}}
                 modal={true}
                 overlayStyle={{opacity: "0.6"}}
                 open={true}

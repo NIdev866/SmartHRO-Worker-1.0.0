@@ -41,7 +41,6 @@ class Signin extends Component {
             <Redirect to={`${worker_id}/myprofile`} />
             :
             <Dialog
-              style={{marginTop: "-200px"}}
               modal={true}
               overlayStyle={{opacity: "0.6"}}
               open={true}
